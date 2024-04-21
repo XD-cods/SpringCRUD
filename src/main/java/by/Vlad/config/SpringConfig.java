@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("by.Vlad.controllers")
+@ComponentScan("by.Vlad")
 public class SpringConfig implements WebMvcConfigurer {
   private final ApplicationContext applicationContext;
 

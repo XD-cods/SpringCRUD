@@ -17,8 +17,14 @@ public class PeopleDAO {
     this.jdbcTemplate = jdbcTemplate;
   }
 
+
+
   public List<People> getAllPeople() {
     return jdbcTemplate.query("Select * FROM People", new BeanPropertyRowMapper<People>(People.class));
+  }
+
+  public People getPeopleById(int id) {
+    return null;
   }
 
 
