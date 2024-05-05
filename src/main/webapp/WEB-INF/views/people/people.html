@@ -7,26 +7,25 @@
 <body>
     <p>
     <span th:text="${people.getFio()}"></span>,
-    <span th:text="${people.getYearBirthday()}"></span>
+    <span th:text="${people.getBirthYear()}"></span>
     </p>
-    <p th:if="${people.getBooks().size()} <= 0">Человек пока не взял ни одной книги</p>
-    <ul th:if="${people.getBooks().size()} > 0"
-        th:each="book : ${people.getBooks()}">
+    <p th:if="${books}==null">Человек пока не взял ни одной книги</p>
+    <ul th:if="${books} != null"
+        th:each="book : ${books}">
         <li>
                 Вот все книги которые взял <b><span th:text="${people.getFio()}"/></b>:
             <p>
-                <br>
                 <span th:text="${book.getTitle()}"/>,
                 <span th:text="${book.getAuthor()}"/>,
-                <span th:text="${book.getYear()}"/>
+                <span th:text="${book.getYearOfIssue()}"/>
             </p>
         </li>
     </ul>
     <hr>
-    <a th:href="@{/people/{id}/edit(id= ${people.getId()})}" >Редактировать</a>
+    <a th:href="@{/people/{id}/edit(id= ${people.getPeopleId()})}" >Редактировать</a>
     <br>
     <br>
-    <form th:method="DELETE" th:action="@{/people/{id}(id=${people.getId()})}">
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${people.getPeopleId()})}">
         <input type="submit" value="Удалить">
     </form>
     <br>

@@ -7,14 +7,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class PeopleDAO {
   private JdbcTemplate jdbcTemplate;
-  private List<People> peopleList = new ArrayList<People>();
-  private static int COUNTER = 0;
 
   @Autowired
   public PeopleDAO(JdbcTemplate jdbcTemplate) {
@@ -26,37 +23,32 @@ public class PeopleDAO {
   }
 
   public List<People> getAllPeople() {
-//    return jdbcTemplate.query("Select * FROM peoples", new BeanPropertyRowMapper<People>(People.class));
-    return peopleList;
+    String sql = "select * from people";
+    return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(People.class));
   }
 
   public People getPeopleById(int id) {
-//    return null;
-    for (People people : peopleList) {
-      if (people.getId() == id) {
-        return people;
-      }
-    }
-    return new People();
+    String sql = "select * from people where people_id = ?";
+    return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(People.class), id);
+  }
+
+  public List<Book> getPeoplesBook(int id) {
+    String sql = "select * from books where people_id = ?";
+    return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class), id);
   }
 
   public void addPeople(People people) {
-//    jdbcTemplate.update("INSERT INTO peoples()");
-    people.setId(COUNTER++);
-    peopleList.add(people);
+    String sql = "insert into people (fio,birth_year) values(?,?)";
+    jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(People.class), people.getFio(), people.getBirthYear());
   }
 
   public void delete(int id) {
-    for (People people : peopleList) {
-      if (people.getId() == id) {
-        peopleList.remove(people);
-      }
-    }
+  String sql = "delete from people where people_id = ?";
+  jdbcTemplate.update(sql,id);
   }
 
   public void update(int id, People people) {
-    People oldPeople = getPeopleById(id);
-    oldPeople.setFio(people.getFio());
-    oldPeople.setYearBirthday(people.getYearBirthday());
+  String sql = "update people set fio = ?, birth_year = ? where people_id = ?";
+  jdbcTemplate.update(sql,people.getFio(),people.getBirthYear(),id);
   }
 }

@@ -1,33 +1,30 @@
 package by.Vlad.model;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
 public class People {
-  private int id;
+  private int peopleId;
   @NotEmpty
   private String fio;
   @NotEmpty
-  private int yearBirthday;
-  private List<Book> books = new ArrayList<>();
+  private int birthYear;
 
   public People() {
   }
 
-  public People(String fio, int yearBirthday) {
+  public People(String fio, int birthYear) {
     this.fio = fio;
-    this.yearBirthday = yearBirthday;
+    this.birthYear = birthYear;
   }
 
-  public int getId() {
-    return id;
+  public int getPeopleId() {
+    return peopleId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setPeopleId(int peopleId) {
+    this.peopleId = peopleId;
   }
 
   public String getFio() {
@@ -38,20 +35,12 @@ public class People {
     this.fio = fio;
   }
 
-  public int getYearBirthday() {
-    return yearBirthday;
+  public int getBirthYear() {
+    return birthYear;
   }
 
-  public void setYearBirthday(int yearBirthday) {
-    this.yearBirthday = yearBirthday;
-  }
-
-  public List<Book> getBooks() {
-    return books;
-  }
-
-  public void setBooks(List<Book> books) {
-    this.books = books;
+  public void setBirthYear(int birthYear) {
+    this.birthYear = birthYear;
   }
 
   @Override

@@ -32,8 +32,8 @@ public class PeopleController {
 
   @GetMapping("/{id}")
   public String getPeople(@PathVariable int id, Model model) {
-    System.out.println(peopleDAO.getPeopleById(id).getFio() + " getPeople");
     model.addAttribute("people", peopleDAO.getPeopleById(id));
+    model.addAttribute("books", peopleDAO.getPeoplesBook(id));
     return "people/people";
   }
 

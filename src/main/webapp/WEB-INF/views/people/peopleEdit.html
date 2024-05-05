@@ -5,12 +5,12 @@
     <title>edit</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/people/{id}/edit(id=${people.getId()})}" th:object="${people}">
+<form th:method="PATCH" th:action="@{/people/{id}/edit(id=${people.getPeopleId()})}" th:object="${people}">
     <label for="fio">Введите ФИО:</label>
     <input type="text" id="fio" th:field="*{fio}" th:value="${people.getFio()}">
     <br>
     <label for="birthDay">Введите год рождения:</label>
-    <input type="text" id="birthDay" th:field="*{yearBirthday}" th:value="${people.getYearBirthday()}">
+    <input type="text" id="birthDay" th:field="*{birthYear}" th:value="${people.getBirthYear()}">
     <br>
     <input type="submit" value="Редактировать">
 </form>

@@ -8,8 +8,8 @@
 <H2 class="Title">Вот все люди которые взяли книги</H2>
 <ul>
     <li th:each="person : ${peoples}">
-        <a th:href="@{/people/{id}(id=${person.getId()})}">
-            <span th:text="${person.getFio()}"></span>, <span th:text="${person.getYearBirthday()}"></span>
+        <a th:href="@{/people/{id}(id=${person.getPeopleId()})}">
+            <span th:text="${person.getFio()}"></span>, <span th:text="${person.getBirthYear()}"></span>
         </a>
     </li>
 </ul>
