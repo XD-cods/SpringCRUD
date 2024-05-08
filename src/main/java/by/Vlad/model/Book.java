@@ -1,30 +1,30 @@
 package by.Vlad.model;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class Book {
   private Integer bookId;
   private Integer peopleId;
-  @NotNull
+  @Size(min = 3,message = "The title must have no more than 3 characters")
+  @NotEmpty(message = "Input book title")
   private String title;
-  @NotNull
-  @Size(min = 2, max = 20)
+  @Size(min = 3, message = "The author name must have no less than 3 characters")
+  @NotEmpty(message = "Input author name")
   private String author;
-  @NotNull
-  @Min(value = 0,message = "Years will be greater than 0")
+  @Min(value = 1900, message = "Years will be greater than 1900")
   private int yearOfIssue;
 
   public Book() {
   }
 
-  public void setBookId(Integer bookId) {
-    this.bookId = bookId;
-  }
-
   public int getBookId() {
     return bookId;
+  }
+
+  public void setBookId(Integer bookId) {
+    this.bookId = bookId;
   }
 
   public void setBookId(int bookId) {

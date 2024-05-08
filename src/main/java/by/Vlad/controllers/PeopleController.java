@@ -5,6 +5,7 @@ import by.Vlad.model.People;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
@@ -44,7 +47,10 @@ public class PeopleController {
   }
 
   @PostMapping("/new")
-  public String newPeople(@ModelAttribute("people") People people) {
+  public String newPeople(@ModelAttribute("people") @Valid People people, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "people/peopleNew";
+    }
     peopleDAO.addPeople(people);
     return "redirect:/people";
   }
@@ -62,7 +68,10 @@ public class PeopleController {
   }
 
   @PatchMapping("/{id}/edit")
-  public String updatePeople(@PathVariable int id, @ModelAttribute People people) {
+  public String updatePeople(@PathVariable int id, @ModelAttribute @Valid People people, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "people/peopleEdit";
+    }
     peopleDAO.update(id, people);
     return "redirect:/people/" + id;
   }

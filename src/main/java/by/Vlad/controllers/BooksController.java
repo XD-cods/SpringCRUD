@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,10 @@ public class BooksController {
   }
 
   @PostMapping("/new")
-  public String addBook(@ModelAttribute("book") Book book) {
+  public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+    if(bindingResult.hasErrors()) {
+      return "book/newBook";
+    }
     booksDAO.addBook(book);
     return "redirect:/books";
   }
@@ -63,7 +68,10 @@ public class BooksController {
   }
 
   @PatchMapping("/{id}")
-  public String updateBook(@ModelAttribute("book") Book book, @PathVariable int id) {
+  public String updateBook(@ModelAttribute("book") @Valid Book book, @PathVariable int id, BindingResult bindingResult) {
+    if(bindingResult.hasErrors()) {
+      return "book/book";
+    }
     Book oldBook = booksDAO.getBookById(id);
     book.setTitle(oldBook.getTitle());
     book.setAuthor(oldBook.getAuthor());
@@ -88,7 +96,10 @@ public class BooksController {
   }
 
   @PatchMapping("/{id}/edit")
-  public String editedBook(@PathVariable int id, @ModelAttribute("book") Book book) {
+  public String editedBook(@PathVariable int id, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+    if(bindingResult.hasErrors()) {
+      return "book/editBook";
+    }
     booksDAO.updateBook(book);
     return "redirect:/books";
   }

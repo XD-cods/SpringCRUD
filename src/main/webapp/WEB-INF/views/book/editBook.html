@@ -10,14 +10,17 @@
     <input type="hidden" th:field="*{peopleId}" th:value="${book.getPeopleId()}">
     <label for="title">Введите название книги</label>
     <input id="title" type="text" th:field="*{title}" th:value="${book.getTitle()}">
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     <br>
     <br>
     <label for="author">Введите имя автора</label>
     <input id="author" type="text" th:field="*{author}" th:value="${book.getAuthor()}">
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
     <br>
     <br>
     <label for="year">Введите год выпуска книги</label>
     <input id="year" type="text" th:field="*{yearOfIssue}" th:value="${book.getYearOfIssue()}">
+    <div style="color:red" th:if="${#fields.hasErrors('yearOfIssue')}" th:errors="*{yearOfIssue}"></div>
     <br>
     <br>
     <input type="submit" value="Редактировать!">

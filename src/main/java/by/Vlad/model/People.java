@@ -1,14 +1,16 @@
 package by.Vlad.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class People {
   private int peopleId;
-  @NotEmpty
+  @Size(min = 10,message = "the fio must have no less than 10 characters")
+  @NotEmpty(message = "Input fio")
   private String fio;
-  @NotEmpty
+  @Min(value = 1900,message = "the birth year must have no less than 1900 year")
   private int birthYear;
 
   public People() {
